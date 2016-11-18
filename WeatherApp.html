@@ -1,27 +1,33 @@
 <html>
   <head>
 	  <script>
-	  var x = document.getElementById("geoLoc");
-		function getLocation() {
+		var lat;
+		var lon;
+		var url;
+
+		window.onload = getCoordinates;
+
+		function getCoordinates(){
 			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(showPosition);
-			} else {
-				x.innerHTML = "Geolocation is not supported by this browser.";
-			}
+				navigator.geolocation.getCurrentPosition(setlocation);
+			} 
 		}
-		function showPosition(position) {
-			x.innerHTML = "Latitude: " + position.coords.latitude + 
-			"<br>Longitude: " + position.coords.longitude; 
+
+		function setlocation(position) {
+			lat=  position.coords.latitude;
+			long = position.coords.longitude; 
+			url = "http://api.openweathermap.org/data/2.5/weather?lat="+ lat +"&lon="+ long + "&APPID=e904ab3ef1d2000ee03d6f3f691d0bb4"
 		}
 
 		$(document).ready(function() {
 			$("#getMessage").on("click", function(){
-			  $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=London1&APPID=e904ab3ef1d2000ee03d6f3f691d0bb4", function(json) {
+			  
+			  $.getJSON(url, function(json) {
 			  $(".message").html(JSON.stringify(json));
 			});
 			
-		});
-	  });
+			});
+		 });
 	  </script>
       <meta charset="UTF-8">
       <title>Today's Weather</title>
