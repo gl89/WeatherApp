@@ -4,9 +4,11 @@
 var lat;
 var long;
 var url;
+//var time;
 
 //some sort of toggle function
 window.onload = getCoordinates;
+//window.onload = getTime;
 
 function getCoordinates() {
   if (navigator.geolocation) {
@@ -18,22 +20,22 @@ function getCoordinates() {
 function setlocation(position) {
   lat = position.coords.latitude;
   long = position.coords.longitude;
-  url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&APPID=e904ab3ef1d2000ee03d6f3f691d0bb4"
+  url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&APPID=e904ab3ef1d2000ee03d6f3f691d0bb4";
+}
+
+//time function
+/*
+function getTime(){
+ var dt = new Date(); 
+ time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 }
 
 function weatherIcon(temp){
-  
-}
-
-function cloudIcon(cloud){
- 
 }
 
 function windIcon(wind){
-  
-  
- 
 }
+*/
 
 $(document).ready(function() {
   $("#getMessage").on("click", function() {
@@ -41,11 +43,13 @@ $(document).ready(function() {
     $.getJSON(url, function(results) {
     var html ="";
       html += "<div>";
-      html += "<p>Where you are</p>"
-      html += "<p>" + results.name + "</p>"
-      html += "<p>Temperature</p>"
+      html += "<p>Local Time</p>";
+      //html += "<p>"+time+"</p>";
+      html += "<p>Where you are</p>";
+      html += "<p>" + results.name + "</p>";
+      html += "<p>Temperature</p>";
       //add bootstrap button for temperature
-      html += "<p>" + results.main.temp"
+      html += "<p>" + results.main.temp + "</p>";
       //html += results.coord.lon;
       html +="</div>";
      $(".message").html(html);
