@@ -2,47 +2,62 @@
 
 <head>
 <script>
+$(document).ready(function() {
+  //possibly change this using -ip-api, it gives way more info
+  //geolocation variables - works
   var lat;
-var long;
-var url;
-var time;
-var tempF;
-var tempC;
-var loc;
+  var long;
+  var url;
 
-//some sort of toggle function
-window.onload = getCoordinates;
-//window.onload = getTime;
+  //some sort of toggle function
+  window.onload = getCoordinates;
+  //window.onload = getTime;
 
-function getCoordinates() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(setlocation);
+  function getCoordinates() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(setlocation);
+    }
   }
-}
 
-//probably need a units variable 
-function setlocation(position) {
+  //probably need a units variable 
+  function setlocation(position) {
 
-  lat = position.coords.latitude;
-  long = position.coords.longitude;
-  url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&APPID=e904ab3ef1d2000ee03d6f3f691d0bb4";
-}
-//populate the empty stuff with info
-$.getJSON(url, function(results) {
-  //html += results.coord.lon;
-  loc = results.name;
-  tempF = Math.round(((((results.main.temp - 273.15) * 1.8000) + 32) * 10) / 10).toFixed(0);
-  tempC = Math.round(results.main.temp - 273.15);
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
+    url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&APPID=e904ab3ef1d2000ee03d6f3f691d0bb4";
+  }
+  
+  
+  var tempF;
+  var tempC;
+  var loc;
+  var weather;
+  var time;
+  
+  // $.getJSON(url, function(results) {
+  //loc = results.name;
+  loc = "Toms River, NJ";
+  //tempF = Math.round(results.main.temp - 273.15)
+  tempF = 32;
+  tempC = Math.round((tempF - 32) / (9 / 5));
+  // weather = results.weather[1].main.toString();
+  weather = "Rain";
 
-  $('#tempF').text(tempF)
-  $('tempC').text(tempC)
+  $("button").click(function() {
+    $("#tempF").empty().append(tempF + "&deg;C");
+    $("#tempC").empty().append(tempC + "&deg;F");
+    $("#loc").empty().append(loc+lat+long+url);
+    $("#weather").empty().append(weather);
+  });
+
+  $("#t2").click(function() {
+    $(".temp").toggle();
+  });
+
+  //});
 });
 
-$("button").click(function() {
-  $('#tempF').toggle();
-  $('#tempC').toggle();
-});
-
+//just fades stuff 
 $(window).load(function() {
   $(".loader").fadeOut("slow");
 })
