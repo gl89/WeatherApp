@@ -1,10 +1,14 @@
 <html>
-  <head>
-	  <script>
-var lat;
+
+<head>
+<script>
+  var lat;
 var long;
 var url;
-//var time;
+var time;
+var tempF;
+var tempC;
+var loc;
 
 //some sort of toggle function
 window.onload = getCoordinates;
@@ -18,55 +22,68 @@ function getCoordinates() {
 
 //probably need a units variable 
 function setlocation(position) {
+
   lat = position.coords.latitude;
   long = position.coords.longitude;
   url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&APPID=e904ab3ef1d2000ee03d6f3f691d0bb4";
 }
+//populate the empty stuff with info
+$.getJSON(url, function(results) {
+  //html += results.coord.lon;
+  loc = results.name;
+  tempF = Math.round(((((results.main.temp - 273.15) * 1.8000) + 32) * 10) / 10).toFixed(0);
+  tempC = Math.round(results.main.temp - 273.15);
 
-//time function
-/*
-function getTime(){
- var dt = new Date(); 
- time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-}
-
-function weatherIcon(temp){
-}
-
-function windIcon(wind){
-}
-*/
-
-$(document).ready(function() {
-  $("#getMessage").on("click", function() {
-    //populate the empty stuff with info
-    $.getJSON(url, function(results) {
-    var html ="";
-      html += "<div>";
-      html += "<p>Local Time</p>";
-      //html += "<p>"+time+"</p>";
-      html += "<p>Where you are</p>";
-      html += "<p>" + results.name + "</p>";
-      html += "<p>Temperature</p>";
-      //add bootstrap button for temperature
-      html += "<p>" + results.main.temp + "</p>";
-      //html += results.coord.lon;
-      html +="</div>";
-     $(".message").html(html);
-    });
-  });
+  $('#tempF').text(tempF)
+  $('tempC').text(tempC)
 });
 
-//need a function to change F to C
-	  </script>
-      <meta charset="UTF-8">
-      <title>Today's Weather</title>
-  </head>
-  <body> 
-   <p>Current Local Coordinates<p>
-     <p id="geoLoc"></p>      
-   <button onclick="getLocation()">Try It</button>
-   <p>Should have the API call stuff<p>
-   <p id="message" class="message">Info here</p>
-   <button id = "getMessage">GetWeather</button>
-</html>`
+$("button").click(function() {
+  $('#tempF').toggle();
+  $('#tempC').toggle();
+});
+
+$(window).load(function() {
+  $(".loader").fadeOut("slow");
+})
+  </script>
+</head>
+
+<body style="background: url(http://dncache-mauganscorp.netdna-ssl.com/thumbseg/1566/1566253-bigthumbnail.jpg) no-repeat center center; background-size: cover;">
+
+  <body>
+    <div class="container-fluid">
+
+      <div class="loader text-center">Loading....</div>
+
+      <div class="jumbotron transparent text-center">
+        <h1><i>Weather Application</i></h1>
+        <div class="top-row">
+          <span class="col" id="tempF ">
+                <p>Fahrenheit</p>
+              </span>
+          <span class="col" id="tempC"> 
+                <p>Celcius</p>
+              </span>
+        </div>
+
+        <div class="bot-row">
+          <span class="col" id="loc">
+                <p>Location</p>
+              </span>
+          <span class="col" id="weather">
+                <p>Weather</p>
+              </span>
+        </div>
+
+      </div>
+
+      <div class="text-center"><button>Fahrenheit/Celcius</button></div>
+      <!-- FOOTER -->
+
+      <footer class=" footer text-center">
+        <p>Written and coded by <a href="https://www.freecodecamp.com/gl89" target="_blank">Gabriel Loterena</a>.</p>
+      </footer>
+    </div>
+  </body>
+  <html>
