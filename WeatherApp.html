@@ -1,104 +1,61 @@
 <html>
-
-<head>
-<script>
-$(document).ready(function() {
-  //possibly change this using -ip-api, it gives way more info
-  //geolocation variables - works
-  var lat;
-  var long;
-  var url;
-
-  //some sort of toggle function
-  window.onload = getCoordinates;
-  //window.onload = getTime;
-
-  function getCoordinates() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(setlocation);
-    }
-  }
-
-  //probably need a units variable 
-  function setlocation(position) {
-
-    lat = position.coords.latitude;
-    long = position.coords.longitude;
-    url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + long + "&units=imperial&APPID=e904ab3ef1d2000ee03d6f3f691d0bb4";
-  }
-  
-  
-  var tempF;
-  var tempC;
-  var loc;
-  var weather;
-  var time;
-  
-  // $.getJSON(url, function(results) {
-  //loc = results.name;
-  loc = "Toms River, NJ";
-  //tempF = Math.round(results.main.temp - 273.15)
-  tempF = 32;
-  tempC = Math.round((tempF - 32) / (9 / 5));
-  // weather = results.weather[1].main.toString();
-  weather = "Rain";
-
-  $("button").click(function() {
-    $("#tempF").empty().append(tempF + "&deg;C");
-    $("#tempC").empty().append(tempC + "&deg;F");
-    $("#loc").empty().append(loc+lat+long+url);
-    $("#weather").empty().append(weather);
-  });
-
-  $("#t2").click(function() {
-    $(".temp").toggle();
-  });
-
-  //});
-});
-
-//just fades stuff 
-$(window).load(function() {
-  $(".loader").fadeOut("slow");
-})
-  </script>
-</head>
-
-<body style="background: url(http://dncache-mauganscorp.netdna-ssl.com/thumbseg/1566/1566253-bigthumbnail.jpg) no-repeat center center; background-size: cover;">
-
-  <body>
+<body>
+  <div class="vert-space1">
     <div class="container-fluid">
-
-      <div class="loader text-center">Loading....</div>
-
-      <div class="jumbotron transparent text-center">
-        <h1><i>Weather Application</i></h1>
+      <div class="text-center">
+        <h1 class="col"><i>Your Weather Today Is</i></h1>
         <div class="top-row">
-          <span class="col" id="tempF ">
-                <p>Fahrenheit</p>
-              </span>
-          <span class="col" id="tempC"> 
-                <p>Celcius</p>
-              </span>
+          <span class="col" id="tempC"></span>
+          <span class="col" id="tempF"></span>
         </div>
+        <div class="mid1-row">
 
-        <div class="bot-row">
-          <span class="col" id="loc">
-                <p>Location</p>
-              </span>
-          <span class="col" id="weather">
-                <p>Weather</p>
-              </span>
+          <div class="icon thunder-storm">
+            <div class="cloud"></div>
+            <div class="lightning">
+              <div class="bolt"></div>
+              <div class="bolt"></div>
+            </div>
+          </div>
+
+          <div class="icon cloudy">
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+          </div>
+
+          <div class="icon flurries">
+            <div class="cloud"></div>
+            <div class="snow">
+              <div class="flake"></div>
+              <div class="flake"></div>
+            </div>
+          </div>
+
+          <div class="icon sunny">
+            <div class="sun">
+              <div class="rays"></div>
+            </div>
+          </div>
+
+          <div class="icon rainy">
+            <div class="cloud"></div>
+            <div class="rain"></div>
+          </div>
+
+          <div class="mid2-row">
+            <span class="col" id="weather"></span>
+          </div>
+          <div class="bot-row">
+            <span class="col" id="loc"></span>
+            <span class="col" id="weather"></span>
+          </div>
+          <div class="text-center"><button>F/C</button></div>
+          <div class="vert-space2">
+            <!-- FOOTER -->
+            <footer class="footer text-center">
+              <p class="text-center">Written and coded by <a href="https://www.freecodecamp.com/gl89" target="_blank">Gabriel Loterena</a>.</p>
+            </footer>
+          </div>
         </div>
-
-      </div>
-
-      <div class="text-center"><button>Fahrenheit/Celcius</button></div>
-      <!-- FOOTER -->
-
-      <footer class=" footer text-center">
-        <p>Written and coded by <a href="https://www.freecodecamp.com/gl89" target="_blank">Gabriel Loterena</a>.</p>
-      </footer>
-    </div>
-  </body>
-  <html>
+</body>
+<html>

@@ -1,0 +1,40 @@
+body {
+  background: white;
+}
+
+.container-fluid {
+  width: 100%;
+  border-radius: 30px;
+  background: black;
+  margin: 0 auto;
+}
+
+.vert-space1 {
+  padding: 100px;
+}
+
+.vert-space2 {
+  padding: 25px;
+}
+
+.col {
+  font-size: 200%;
+  font-weight: bold;
+  color: #DAE5E9
+}
+
+p {
+  font-weight: bold;
+  color: #DAE5E9;
+}
+
+button {
+  font-size: 200%;
+  font-weight: bold;
+  color: #DAE5E9;
+  border: none;
+  background-color: Transparent;
+  overflow: hidden;
+  outline:none;
+}
+
