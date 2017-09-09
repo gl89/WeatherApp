@@ -1,23 +1,67 @@
 $(document).ready(function() {
-  var lat, long;
-  var location;
+  var location, lat, long;
+  var city, state, country;
   var weather;
   var tempF, tempC;
 
+  //CORS problem solution, read up on this
+  var proxy = "https://cors-anywhere.herokuapp.com/";
+
+  var geoURL = proxy + "https://ipinfo.io/json";
+
+  $.getJSON(geoURL, function(data) {
+    location = data.loc.split(",");
+    lat = location[0];
+    long = location[1];
+    city = data.city;
+    state = data.region;
+    country = data.country;
+
+    var url =
+      proxy +
+      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f5bb7edc2eaf66143e93a843b6bbd856/" +
+      lat +
+      "," +
+      long;
+
+    $.getJSON(url, function(data) {
+      tempF = Math.round(data.currently.temperature);
+      tempC = Math.round((tempF - 32) * 5 / 9 );
+      weatherICON = data.currently.icon;
+      weather = data.currently.summary;
+
+      $("#tempF").append(tempF + "&deg;F");
+      $("#tempC").append(tempC + "&deg;C");
+      $("#loc").append(city + state + country);
+      $("#tempF").append(" " + weather);
+      $("#tempC").append(" " + weather);
+      //$("#weatherICON").append("<img id='icon' src=" + weatherICON + "/>"); this works it's just the icons are UGLY
+    });
+
+    $("#tempC").hide();
+    $("button").click(function() {
+      $("#tempF, #tempC").toggle();
+    });
+  });
+
+  /*
+  //use api for better location
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       lon = position.coords.longitude;
       lat = position.coords.latitude;
-      var proxy = "https://cors-anywhere.herokuapp.com/"
-      var url1 = 
+      
+      var url = 
         proxy + "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f5bb7edc2eaf66143e93a843b6bbd856/" + lat + ","+ lon;
+      /*
+      
       var url =
         "https://fcc-weather-api.glitch.me/api/current?lat=" +
         lat +
         "&lon=" +
         lon;
-      
-      /*
+     
+ 
       $.getJSON(url, function(data) {
         //console.log(data.weather[0].main); //array in a JSON object
         location = data.name;
@@ -35,22 +79,7 @@ $(document).ready(function() {
         $("#tempC").append(" " + weather);
         //$("#weatherICON").append("<img id='icon' src=" + weatherICON + "/>"); this works it's just the icons are UGLY
       });
-      
-      $.getJSON(url1, function(data) {
-        console.log(data);
-      });
       */
-      
-    });
-  }
-  
-  //This is where I could 
-  $(".icon").hide();
-  $(".cloudy").show();
 
   //jQuery to toggle between Celcius and Fahrenheit
-  $("#tempC").hide();
-  $("button").click(function() {
-    $("#tempF, #tempC").toggle();
-  });
 });
