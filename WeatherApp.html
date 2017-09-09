@@ -1,61 +1,67 @@
 <html>
+
 <body>
   <div class="vert-space1">
     <div class="container-fluid">
       <div class="text-center">
         <h1 class="col"><i>Your Weather Today Is</i></h1>
+
         <div class="top-row">
           <span class="col" id="tempC"></span>
           <span class="col" id="tempF"></span>
         </div>
+
         <div class="mid1-row">
+          <figure>
+            <canvas class="skycon" id="clear-day" width="128" height="128">
+        </canvas>
 
-          <div class="icon thunder-storm">
-            <div class="cloud"></div>
-            <div class="lightning">
-              <div class="bolt"></div>
-              <div class="bolt"></div>
-            </div>
-          </div>
+            <canvas class="skycon" id="clear-night" width="128" height="128">
+        </canvas>
 
-          <div class="icon cloudy">
-            <div class="cloud"></div>
-            <div class="cloud"></div>
-          </div>
+            <canvas class="skycon" id="partly-cloudy-day" width="128" height="128">
+        </canvas>
 
-          <div class="icon flurries">
-            <div class="cloud"></div>
-            <div class="snow">
-              <div class="flake"></div>
-              <div class="flake"></div>
-            </div>
-          </div>
+            <canvas class="skycon" id="partly-cloudy-night" width="128" height="128">
+        </canvas>
 
-          <div class="icon sunny">
-            <div class="sun">
-              <div class="rays"></div>
-            </div>
-          </div>
+            <canvas class="skycon" id="cloudy" width="128" height="128">
+        </canvas>
 
-          <div class="icon rainy">
-            <div class="cloud"></div>
-            <div class="rain"></div>
-          </div>
+            <canvas class="skycon" id="rain" width="128" height="128">
+        </canvas>
 
-          <div class="mid2-row">
-            <span class="col" id="weather"></span>
-          </div>
-          <div class="bot-row">
-            <span class="col" id="loc"></span>
-            <span class="col" id="weather"></span>
-          </div>
-          <div class="text-center"><button>F/C</button></div>
-          <div class="vert-space2">
-            <!-- FOOTER -->
-            <footer class="footer text-center">
-              <p class="text-center">Written and coded by <a href="https://www.freecodecamp.com/gl89" target="_blank">Gabriel Loterena</a>.</p>
-            </footer>
-          </div>
+            <canvas class="skycon" id="sleet" width="128" height="128">
+        </canvas>
+
+            <canvas class="skycon" id="snow" width="128" height="128">
+        </canvas>
+
+            <canvas class="skycon" id="wind" width="128" height="128">
+        </canvas>
+
+            <canvas class="skycon" id="fog" width="128" height="128">
+        </canvas>
+          </figure>
+          <!-- this stops it from displaying for a split second -->
+          <script>$(".skycon").hide();</script>
+
         </div>
+
+        <div class="bot-row">
+          <span class="col" id="loc"></span>
+          <span class="col" id="weather"></span>
+        </div>
+
+        <div class="text-center"><button>F/C</button></div>
+        <div class="vert-space2">
+          <!-- FOOTER -->
+          <footer class="footer text-center">
+            <p class="text-center">Written and coded by <a href="https://www.freecodecamp.com/gl89" target="_blank">Gabriel Loterena</a></p>
+            <p class="text-center">Powered by <a href="https://darksky.net/poweredby/" target="_blank">Dark Sky</a> & <a href="https://ipinfo.io/developers" target="_blank">ipinfo</a></p>
+            <!-- https://ipinfo.io/developers -->
+          </footer>
+        </div>
+      </div>
 </body>
 <html>
