@@ -1,6 +1,5 @@
 $(document).ready(function() {
   var lat, long;
-  var url;
   var location;
   var weather;
   var tempF, tempC;
@@ -9,11 +8,16 @@ $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(function(position) {
       lon = position.coords.longitude;
       lat = position.coords.latitude;
+      var proxy = "https://cors-anywhere.herokuapp.com/"
+      var url1 = 
+        proxy + "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f5bb7edc2eaf66143e93a843b6bbd856/" + lat + ","+ lon;
       var url =
         "https://fcc-weather-api.glitch.me/api/current?lat=" +
         lat +
         "&lon=" +
         lon;
+      
+      /*
       $.getJSON(url, function(data) {
         //console.log(data.weather[0].main); //array in a JSON object
         location = data.name;
@@ -31,11 +35,16 @@ $(document).ready(function() {
         $("#tempC").append(" " + weather);
         //$("#weatherICON").append("<img id='icon' src=" + weatherICON + "/>"); this works it's just the icons are UGLY
       });
+      
+      $.getJSON(url1, function(data) {
+        console.log(data);
+      });
+      */
+      
     });
   }
   
-  //This is where I could get better icons 
-  //Skycons is amazing, but I have to change my code for that
+  //This is where I could 
   $(".icon").hide();
   $(".cloudy").show();
 
